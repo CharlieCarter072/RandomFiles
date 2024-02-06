@@ -1,0 +1,54 @@
+<canvas id="bro" width="2000" height="1200"></canvas>
+<script>
+    c = document.getElementById("bro")
+    m = c.getContext("2d")
+    
+    atom = function(x,y,c){m.fillStyle=c; m.fillRect(x,y,1,1)}
+    
+    tall = 1200 //750
+    wide = 1800 //1350
+    A = -1.4 // 1.7
+    B = 1.6 // 1.7
+    C = 1.0 // 0.6
+    D = 0.7 // 1.2
+    
+    n = 100000000
+    s = 250
+    S = 1
+            
+            
+    a = 0
+    b = 0
+
+    let grid = new Array(wide).fill(100);
+    for (let i = 0; i < grid.length; i++) {
+        grid[i] = new Array(tall).fill(100);
+}
+    function draw() { // i=1;i<1; y++   
+        
+        let grid = new Array(wide).fill(100);
+        for (let i = 0; i < grid.length; i++) {
+            grid[i] = new Array(tall).fill(100);
+        }
+
+        for(t=1; t<(n+1); t++){ 
+            a1 = a
+            b1 = b
+            a = a1 + (S * (Math.sin(A*b1) + C * Math.cos(A*a1) - a1))
+            b = b1 + (S * (Math.sin(B*a1) + D * Math.cos(B*b1) - b1))
+            ax = Math.round((a*s)+(wide/2))
+            bx = Math.round(((0-b)*s)+(tall/2))
+            grid[ax][bx] *= .99
+        }
+        color = 36
+        for(y=1; y<tall; y++){
+            for(x=1; x<wide; x++){ //   grid[(x*s)+(wide/2)][((0-y)*s)+(tall/2)]
+                atom(x,y,"hsl("+ color + "," + 0 + "%," + (50+(.5*grid[x][y])) + "%)");
+            }
+        }
+        A += .001
+    }
+
+    draw()
+    
+</script>

@@ -1,0 +1,53 @@
+<canvas id="bro" width="1350" height="750"></canvas>
+<script>
+    
+    m = document.getElementById("bro").getContext("2d")
+    
+    atom = function(x,y,c){m.fillStyle=c; m.fillRect(x,y,3,3)}
+    
+    tall = 750 //750
+    wide = 1350 //1350
+    e = 0
+    k = 1.2
+    u = 0
+    
+    n = 250
+    
+    for(y=1; y<tall; y++){
+        for(x=1; x<wide; x++){
+            
+            // 50000 -1.255 -0.383
+            //
+            
+            dx = (x-(wide/2))/500
+            dy = 0-(y-(tall/2))/500// positive is down
+            a = dx
+            b = dy
+            
+            for(t=1; t<(n+1); t++){
+                
+                a1 = a
+                b1 = b
+                a = a1 + b1 + (k * a1 * (a1 - 1))
+                b = b1 + (k * a1 * (a1 - 1)) 
+                d = (a * a) + (b * b)
+                H = d>1
+                
+                if(t==n){
+                    //atom(x,y,"rgb("+ (255*(1-d)) + "," + 0 + "," + 0 + ")");
+                    atom(x,y,"rgb("+ (255*d) + "," + (255*d) + "," + (255*d) + ")");
+                    break
+                }
+                
+                if(H){
+                    //atom(x,y,"rgb("+ 0 + "," + 0 + "," + 0 + ")");
+                    atom(x,y,"rgb("+ 255 + "," + 255 + "," + 255 + ")");
+                    break
+                }
+                
+                
+            }
+        }
+    }
+    
+</script>

@@ -1,0 +1,44 @@
+<canvas id="bro" width="1350" height="750"></canvas>
+<script>
+    
+    m = document.getElementById("bro").getContext("2d")
+    
+    atom = function(x,y,c){m.fillStyle=c; m.fillRect(x,y,3,3)}
+    
+    tall = 750 //750
+    wide = 1350 //1350
+    
+    //1.618-2, 1.618-1
+    
+    // back = 400t, 5000z, -.47, -.194
+    cx = .37
+    cy = 0.1
+    
+    for(y=1; y<tall; y++){
+        for(x=1; x<wide; x++){
+            
+            zx = (x-(wide/2))/300
+            zy = (y-(tall/2))/300// positive is down
+            
+            for(t=1; t<2000; t++){
+                
+                
+                if((zx * zx) + (zy * zy) > 4){
+                    
+                    //atom(x,y,"rgb("+ t*2 + "," + t*1 + "," + t*0 + ")"); //gold
+                    //atom(x,y,"rgb("+ t*(1.5*(x/wide)) + "," + t*(1.5-(1.5*(x/wide))) + "," + t*(1.5*(y/tall)) + ")"); // new
+                    //atom(x,y,"rgb("+ 5*t*(1-(x/wide)) + "," + 0 + "," + 5*t*(x/wide) + ")");
+                    atom(x,y,"rgb("+ (t*3) + "," + (t*1) + "," + (t*0) + ")")
+                    break
+                }
+                
+                // condition
+                as = (zx * zx) - (zy * zy)
+                bs = 2 * zx * zy
+                zx = as + cx
+                zy = bs + cy
+            }
+        }
+    }
+    
+</script>

@@ -1,0 +1,45 @@
+<canvas id="bro" width="1350" height="750"></canvas>
+<script>
+    
+    m = document.getElementById("bro").getContext("2d")
+    
+    atom = function(x,y,c){m.fillStyle=c; m.fillRect(x,y,3,3)}
+    
+    tall = 750 //750
+    wide = 1350 //1350
+    
+    for(y=1; y<tall; y++){
+        for(x=1; x<wide; x++){
+            
+            // 50000 -1.255 -0.383
+            //
+            
+            dx = (x-(wide/2))/300
+            dy = (y-(tall/2))/300// positive is down
+            a = dx
+            b = dy
+            
+            for(t=1; t<360; t++){
+                
+                d = (a*a)-(b*b)+dx
+                b = 2*(a*b)+dy
+                a = d
+                H = d>1000
+                
+                if(H){
+                    
+                    // (3-(3*(x/1350))) 3 = scalar, 3- is to flip side
+                    
+                    //atom(x,y,"rgb("+ t*3 + "," + t*1.25 + "," + t*0.5 + ")");
+                    //atom(x,y,"rgb("+ t*(1*(x/wide)) + "," + t*(3-(3*(x/wide))) + "," + t*(2*(y/tall)) + ")");
+                    
+                    // 3*(Math.sin((t*(Math.pi/180))+120)) and 3*(Math.sin((t*(Math.pi/180))-120))
+                    //atom(x,y,"rgb("+ t*1 + "," + 1*(t%60) + "," + 1*(t%100) + ")");
+                    atom(x,y,"rgb("+ t*2.5 + "," + t*1 + "," + t*0.5 + ")");
+                    break
+                }
+            }
+        }
+    }
+    
+</script>
